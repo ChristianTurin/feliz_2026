@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy New Year 2026</title>
     <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
     <!-- Pantalla de cuenta regresiva -->
@@ -269,8 +270,8 @@
             balloon.className = 'balloon';
             balloon.style.left = Math.random() * (window.innerWidth - 50) + 'px';
             balloon.style.background = colors[Math.floor(Math.random() * colors.length)];
-            balloon.style.setProperty('--drift', (Math.random() - 0.5) * 200 + 'px');
-            balloon.style.setProperty('--rotate', (Math.random() - 0.5) * 90 + 'deg');
+            balloon.style.setProperty('--drift', (Math.random() - 0.5) * 100 + 'px');
+            balloon.style.setProperty('--rotate', (Math.random() - 0.5) * 45 + 'deg');
             balloon.style.animationDelay = Math.random() * 2 + 's';
             
             const msg = document.createElement('div');
@@ -280,7 +281,7 @@
             
             document.body.appendChild(balloon);
             
-            setTimeout(() => balloon.remove(), 8000);
+            setTimeout(() => balloon.remove(), 10000);
         }
 
         // Nieve
