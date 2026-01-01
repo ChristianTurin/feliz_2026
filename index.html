@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy New Year 2026</title>
+   <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <!-- Pantalla de cuenta regresiva -->
+    <div class="countdown-screen" id="countdownScreen">
+        <div class="countdown-number" id="countdownNumber">10</div>
+        <div class="countdown-text">¡Preparate para el Año Nuevo!</div>
+    </div>
+
+    <!-- Flash de luz -->
+    <div class="flash" id="flash"></div>
+
+    <!-- Copa de champagne -->
+    <div class="champagne" id="champagne">🥂</div>
+
+    <div class="fireworks" id="fireworksContainer"></div>
+    
+    <div class="container">
+        <div class="year" id="year">
+            <span class="digit">2</span>
+            <span class="digit">0</span>
+            <span class="digit">2</span>
+            <span class="digit">6</span>
+        </div>
+        <div class="message" id="message">
+            <span id="messageText">¡Feliz Año Nuevo!</span>
+        </div>
+        <div class="custom-message-container" id="customMessageContainer">
+            <input type="text" class="custom-input" id="customInput" placeholder="Escribe tu deseo para 2026...">
+        </div>
+    </div>
+
+    <!-- Selector de idioma -->
+    <div class="language-selector">
+        <select class="language-btn" id="languageSelect">
+            <option value="es">🇪🇸 Español</option>
+            <option value="en">🇺🇸 English</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="de">🇩🇪 Deutsch</option>
+            <option value="pt">🇧🇷 Português</option>
+        </select>
+    </div>
+
+    <!-- Controles -->
+    <div class="controls">
+        <div class="control-btn" id="musicToggle">
+            <span class="tooltip">Música</span>
+            <svg id="playIcon" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+            </svg>
+            <svg id="pauseIcon" viewBox="0 0 24 24" style="display: none;">
+                <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+            </svg>
+        </div>
+        
+        <div class="control-btn" id="rainbowToggle">
+            <span class="tooltip">Modo Arcoíris</span>
+            <svg viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+            </svg>
+        </div>
+        
+        <div class="control-btn" id="snowToggle">
+            <span class="tooltip">Nieve</span>
+            <svg viewBox="0 0 24 24">
+                <path d="M12 2L9 5h3v5.5L9 13l3 2.5V21h2v-5.5l3-2.5-3-2.5V5h3L12 2z"/>
+            </svg>
+        </div>
+
+        <div class="control-btn" id="cheersBtn">
+            <span class="tooltip">¡Salud!</span>
+            <svg viewBox="0 0 24 24">
+                <path d="M6 2l-.01 6L10 12l-3.99 4.01L6 22h12l-.01-5.99L14 12l3.99-4.01L18 2H6z"/>
+            </svg>
+        </div>
+
+        <div class="control-btn" id="screenshotBtn">
+            <span class="tooltip">Captura</span>
+            <svg viewBox="0 0 24 24">
+                <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+            </svg>
+        </div>
+
+        <div class="control-btn" id="shareBtn">
+            <span class="tooltip">Compartir</span>
+            <svg viewBox="0 0 24 24">
+                <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Modal de compartir -->
+    <div class="share-modal" id="shareModal">
+        <h2 style="color: white; text-align: center; margin-bottom: 20px;">¡Comparte la celebración!</h2>
+        <div class="share-buttons">
+            <button class="share-btn" onclick="shareToSocial('twitter')">Twitter</button>
+            <button class="share-btn" onclick="shareToSocial('facebook')">Facebook</button>
+            <button class="share-btn" onclick="shareToSocial('whatsapp')">WhatsApp</button>
+            <button class="share-btn" onclick="closeModal()">Cerrar</button>
+        </div>
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="musica/michel.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Traducciones
+        const translations = {
+            es: {
+                message: '¡Feliz Año Nuevo!',
+                countdown: '¡Preparate para el Año Nuevo!',
+                placeholder: 'Escribe tu deseo para 2026...'
+            },
+            en: {
+                message: 'Happy New Year!',
+                countdown: 'Get ready for the New Year!',
+                placeholder: 'Write your wish for 2026...'
+            },
+            fr: {
+                message: 'Bonne Année!',
+                countdown: 'Préparez-vous pour la Nouvelle Année!',
+                placeholder: 'Écrivez votre souhait pour 2026...'
+            },
+            de: {
+                message: 'Frohes Neues Jahr!',
+                countdown: 'Mach dich bereit für das neue Jahr!',
+                placeholder: 'Schreiben Sie Ihren Wunsch für 2026...'
+            },
+            pt: {
+                message: 'Feliz Ano Novo!',
+                countdown: 'Prepare-se para o Ano Novo!',
+                placeholder: 'Escreva seu desejo para 2026...'
+            }
+        };
+
+        // Variables globales
+        let isPlaying = false;
+        let isRainbow = false;
+        let isSnowing = false;
+        let snowInterval;
+
+        // Cuenta regresiva
+        function startCountdown() {
+            const countdownScreen = document.getElementById('countdownScreen');
+            const countdownNumber = document.getElementById('countdownNumber');
+            const flash = document.getElementById('flash');
+            const year = document.getElementById('year');
+            const message = document.getElementById('message');
+            const customContainer = document.getElementById('customMessageContainer');
+            
+            let count = 10;
+            
+            const countInterval = setInterval(() => {
+                count--;
+                if (count > 0) {
+                    countdownNumber.textContent = count;
+                    countdownNumber.style.animation = 'none';
+                    setTimeout(() => {
+                        countdownNumber.style.animation = 'countPulse 1s ease-in-out';
+                    }, 10);
+                } else {
+                    clearInterval(countInterval);
+                    
+                    // Flash de luz
+                    flash.classList.add('active');
+                    setTimeout(() => flash.classList.remove('active'), 500);
+                    
+                    // Ocultar cuenta regresiva
+                    countdownScreen.classList.add('hidden');
+                    
+                    // Mostrar año y mensaje
+                    year.classList.add('show');
+                    setTimeout(() => {
+                        message.classList.add('show');
+                        customContainer.classList.add('show');
+                        triggerChampagne();
+                    }, 1000);
+                }
+            }, 1000);
+        }
+
+        // Crear estrellas
+        function createStars() {
+            const container = document.body;
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                container.appendChild(star);
+            }
+        }
+
+        // Fuegos artificiales (click y automáticos)
+        function createFirework(x, y) {
+            const container = document.getElementById('fireworksContainer');
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffd700', '#ff6347'];
+            
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'firework';
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                const angle = (Math.PI * 2 * i) / 30;
+                const velocity = 50 + Math.random() * 100;
+                particle.style.setProperty('--tx', Math.cos(angle) * velocity + 'px');
+                particle.style.setProperty('--ty', Math.sin(angle) * velocity + 'px');
+                
+                container.appendChild(particle);
+                
+                setTimeout(() => particle.remove(), 1500);
+            }
+        }
+
+        // Click para fuegos artificiales
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.control-btn') && !e.target.closest('.share-modal')) {
+                createFirework(e.clientX, e.clientY);
+            }
+        });
+
+        // Fuegos artificiales automáticos
+        setInterval(() => {
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * (window.innerHeight * 0.5);
+            createFirework(x, y);
+        }, 1500);
+
+        // Confeti
+        function createConfetti() {
+            const colors = ['#ffd700', '#ff6347', '#00ff00', '#0000ff', '#ff00ff'];
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = -10 + 'px';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDelay = Math.random() * 3 + 's';
+                confetti.style.animationDuration = 3 + Math.random() * 2 + 's';
+                document.body.appendChild(confetti);
+            }
+        }
+
+        // Globos con mensajes
+        function createBalloon() {
+            const messages = ['2026', '❤️', '✨', '🎉', '🎊', 'Amor', 'Paz', 'Salud'];
+            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#6c5ce7', '#a29bfe'];
+            
+            const balloon = document.createElement('div');
+            balloon.className = 'balloon';
+            balloon.style.left = Math.random() * (window.innerWidth - 50) + 'px';
+            balloon.style.background = colors[Math.floor(Math.random() * colors.length)];
+            balloon.style.setProperty('--drift', (Math.random() - 0.5) * 200 + 'px');
+            balloon.style.setProperty('--rotate', (Math.random() - 0.5) * 90 + 'deg');
+            balloon.style.animationDelay = Math.random() * 2 + 's';
+            
+            const msg = document.createElement('div');
+            msg.className = 'balloon-message';
+            msg.textContent = messages[Math.floor(Math.random() * messages.length)];
+            balloon.appendChild(msg);
+            
+            document.body.appendChild(balloon);
+            
+            setTimeout(() => balloon.remove(), 8000);
+        }
+
+        // Nieve
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.className = 'snowflake';
+            snowflake.textContent = '❄';
+            snowflake.style.left = Math.random() * window.innerWidth + 'px';
+            snowflake.style.animationDuration = Math.random() * 3 + 7 + 's';
+            snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
+            document.body.appendChild(snowflake);
+            
+            setTimeout(() => snowflake.remove(), 10000);
+        }
+
+        // Partículas flotantes
+        function createParticles() {
+            const colors = ['#ffd700', '#ff6347', '#00ff00', '#0000ff', '#ff00ff'];
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = 6 + Math.random() * 4 + 's';
+                document.body.appendChild(particle);
+            }
+        }
+
+        // Champagne
+        function triggerChampagne() {
+            const champagne = document.getElementById('champagne');
+            champagne.classList.add('cheers');
+            setTimeout(() => champagne.classList.remove('cheers'), 3000);
+        }
+
+        // Control de música
+        const musicToggle = document.getElementById('musicToggle');
+        const bgMusic = document.getElementById('bgMusic');
+        const playIcon = document.getElementById('playIcon');
+        const pauseIcon = document.getElementById('pauseIcon');
+
+        musicToggle.addEventListener('click', () => {
+            if (isPlaying) {
+                bgMusic.pause();
+                playIcon.style.display = 'block';
+                pauseIcon.style.display = 'none';
+            } else {
+                bgMusic.play();
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'block';
+            }
+            isPlaying = !isPlaying;
+        });
+
+        // Modo arcoíris
+        document.getElementById('rainbowToggle').addEventListener('click', () => {
+            isRainbow = !isRainbow;
+            if (isRainbow) {
+                document.body.classList.add('rainbow');
+            } else {
+                document.body.classList.remove('rainbow');
+            }
+        });
+
+        // Toggle nieve
+        document.getElementById('snowToggle').addEventListener('click', () => {
+            isSnowing = !isSnowing;
+            if (isSnowing) {
+                snowInterval = setInterval(createSnowflake, 200);
+            } else {
+                clearInterval(snowInterval);
+            }
+        });
+
+        // Botón de salud
+        document.getElementById('cheersBtn').addEventListener('click', triggerChampagne);
+
+        // Captura de pantalla
+        document.getElementById('screenshotBtn').addEventListener('click', () => {
+            alert('Para capturar la pantalla:\n\n• Windows: Win + Shift + S\n• Mac: Cmd + Shift + 4\n• Móvil: Botones de volumen + power');
+        });
+
+        // Compartir
+        document.getElementById('shareBtn').addEventListener('click', () => {
+            document.getElementById('shareModal').classList.add('active');
+        });
+
+        function closeModal() {
+            document.getElementById('shareModal').classList.remove('active');
+        }
+
+        function shareToSocial(platform) {
+            const text = encodeURIComponent('¡Feliz Año Nuevo 2026! 🎉');
+            const url = encodeURIComponent(window.location.href);
+            
+            const urls = {
+                twitter: `https://twitter.com/intent/tweet?text=${text}`,
+                facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+                whatsapp: `https://wa.me/?text=${text}`
+            };
+            
+            window.open(urls[platform], '_blank');
+        }
+
+        // Cambio de idioma
+        document.getElementById('languageSelect').addEventListener('change', (e) => {
+            const lang = e.target.value;
+            const translation = translations[lang];
+            
+            document.getElementById('messageText').textContent = translation.message;
+            document.getElementById('customInput').placeholder = translation.placeholder;
+        });
+
+        // Mensaje personalizado
+        document.getElementById('customInput').addEventListener('input', (e) => {
+            if (e.target.value) {
+                document.getElementById('messageText').textContent = e.target.value;
+            } else {
+                const lang = document.getElementById('languageSelect').value;
+                document.getElementById('messageText').textContent = translations[lang].message;
+            }
+        });
+
+        // Inicialización
+        setTimeout(() => {
+            startCountdown();
+        }, 500);
+
+        createStars();
+        createConfetti();
+        createParticles();
+        
+        setInterval(createConfetti, 5000);
+        setInterval(createBalloon, 3000);
+    </script>
+</body>
+</html>
