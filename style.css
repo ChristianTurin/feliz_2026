@@ -508,15 +508,134 @@
 
         @media (max-width: 768px) {
             .digit {
+                font-size: 60px;
+                gap: 10px;
+            }
+            
+            .year {
+                gap: 10px;
+            }
+            
+            .message {
+                font-size: 24px;
+                padding: 0 20px;
+            }
+            
+            .countdown-number {
+                font-size: 100px;
+            }
+            
+            .countdown-text {
+                font-size: 20px;
+                padding: 0 20px;
+                text-align: center;
+            }
+            
+            .custom-input {
+                width: 80%;
+                max-width: 280px;
+                font-size: 16px;
+                padding: 12px 20px;
+            }
+            
+            .custom-message-container {
+                padding: 0 20px;
+            }
+            
+            /* Controles más grandes para móvil */
+            .controls {
+                bottom: 20px;
+                right: 20px;
+                gap: 10px;
+            }
+            
+            .control-btn {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .control-btn svg {
+                width: 24px;
+                height: 24px;
+            }
+            
+            .tooltip {
+                display: none; /* Ocultar tooltips en móvil */
+            }
+            
+            /* Selector de idioma más accesible */
+            .language-selector {
+                top: 20px;
+                right: 20px;
+            }
+            
+            .language-btn {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+            
+            /* Modal de compartir adaptado */
+            .share-modal {
+                width: 90%;
+                padding: 30px 20px;
+            }
+            
+            .share-modal h2 {
+                font-size: 20px;
+            }
+            
+            .share-buttons {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .share-btn {
+                padding: 12px 20px;
+                font-size: 14px;
+                flex: 1 1 45%;
+            }
+            
+            /* Globos más pequeños en móvil */
+            .balloon {
+                width: 35px;
+                height: 42px;
+            }
+            
+            .balloon-message {
+                font-size: 10px;
+            }
+            
+            /* Champagne más pequeño */
+            .champagne {
+                font-size: 60px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .digit {
+                font-size: 50px;
+            }
+            
+            .message {
+                font-size: 20px;
+            }
+            
+            .countdown-number {
                 font-size: 80px;
             }
-            .message {
-                font-size: 32px;
+            
+            .controls {
+                bottom: 15px;
+                right: 15px;
             }
-            .countdown-number {
-                font-size: 120px;
+            
+            .control-btn {
+                width: 45px;
+                height: 45px;
             }
-            .custom-input {
-                width: 250px;
+            
+            .control-btn svg {
+                width: 20px;
+                height: 20px;
             }
         }
