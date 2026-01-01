@@ -1,5 +1,4 @@
-
-        * {
+   * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -351,19 +350,29 @@
             justify-content: center;
             cursor: pointer;
             backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
+            transition: background 0.2s ease, transform 0.1s ease;
             position: relative;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .control-btn:hover {
+        .control-btn:active {
+            transform: scale(0.95);
             background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.1);
+        }
+
+        @media (hover: hover) {
+            .control-btn:hover {
+                background: rgba(255, 255, 255, 0.3);
+                transform: scale(1.1);
+            }
         }
 
         .control-btn svg {
             width: 30px;
             height: 30px;
             fill: white;
+            pointer-events: none;
         }
 
         .tooltip {
@@ -379,8 +388,10 @@
             transition: opacity 0.3s ease;
         }
 
-        .control-btn:hover .tooltip {
-            opacity: 1;
+        @media (hover: hover) {
+            .control-btn:hover .tooltip {
+                opacity: 1;
+            }
         }
 
         /* Confeti */
