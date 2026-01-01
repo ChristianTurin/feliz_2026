@@ -1,7 +1,14 @@
-   * {
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: fixed;
         }
 
         body {
@@ -9,10 +16,14 @@
             background: linear-gradient(135deg, #0a0e27 0%, #1a1a3e 50%, #2d1b4e 100%);
             overflow: hidden;
             height: 100vh;
+            width: 100vw;
             display: flex;
             justify-content: center;
             align-items: center;
             transition: background 1s ease;
+            position: fixed;
+            top: 0;
+            left: 0;
         }
 
         body.rainbow {
@@ -238,12 +249,13 @@
 
         /* Estrellas de fondo */
         .star {
-            position: absolute;
+            position: fixed;
             width: 2px;
             height: 2px;
             background: white;
             border-radius: 50%;
             animation: twinkle 3s ease-in-out infinite;
+            z-index: 1;
         }
 
         @keyframes twinkle {
@@ -253,12 +265,13 @@
 
         /* Globos */
         .balloon {
-            position: absolute;
+            position: fixed;
             width: 50px;
             height: 60px;
             border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
             animation: floatUp 8s ease-in infinite;
             opacity: 0.9;
+            bottom: -100px;
         }
 
         .balloon::before {
@@ -283,40 +296,44 @@
 
         @keyframes floatUp {
             0% {
-                transform: translateY(100vh) translateX(0) rotate(0deg);
+                bottom: -100px;
                 opacity: 0.9;
             }
             100% {
-                transform: translateY(-100px) translateX(var(--drift)) rotate(var(--rotate));
+                bottom: 110vh;
+                transform: translateX(var(--drift)) rotate(var(--rotate));
                 opacity: 0;
             }
         }
 
         /* Copos de nieve */
         .snowflake {
-            position: absolute;
+            position: fixed;
             color: white;
             font-size: 1em;
-            top: -10px;
+            top: -20px;
             animation: snowfall 10s linear infinite;
             opacity: 0.8;
+            z-index: 1;
         }
 
         @keyframes snowfall {
             to {
-                transform: translateY(100vh) rotate(360deg);
+                top: 110vh;
+                transform: rotate(360deg);
             }
         }
 
         /* Partículas flotantes */
         .particle {
-            position: absolute;
+            position: fixed;
             width: 8px;
             height: 8px;
             background: #ffd700;
             border-radius: 50%;
             animation: floatParticle 6s ease-in-out infinite;
             opacity: 0.6;
+            z-index: 1;
         }
 
         @keyframes floatParticle {
@@ -396,15 +413,18 @@
 
         /* Confeti */
         .confetti {
-            position: absolute;
+            position: fixed;
             width: 10px;
             height: 10px;
             animation: fall 3s linear infinite;
+            top: -20px;
+            z-index: 1;
         }
 
         @keyframes fall {
             to {
-                transform: translateY(100vh) rotate(360deg);
+                top: 110vh;
+                transform: rotate(360deg);
                 opacity: 0;
             }
         }
